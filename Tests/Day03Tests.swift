@@ -1,0 +1,34 @@
+import Testing
+
+@testable import AdventOfCode
+
+@Suite("Day03 Tests")
+struct Day03Tests {
+  @Suite("Parser Tests")
+  struct ParserTests {
+    @Test("Test parser implementation")
+    func parseInput() {
+      let day = Day03(data: testInput)
+      #expect(day.instructions.count == 10)
+    }
+  }
+
+  @Suite("Tests on sample inputs")
+  struct SolutionsTests {
+    let day = Day03(data: testInput)
+
+    @Test("Part1 example")
+    func testPart1() async throws {
+      let result = try await day.part1()
+      #expect(result == 2)
+    }
+
+    @Test("Part2 example")
+    func testPart2() async throws {
+      let result = try await day.part2()
+      #expect(result == 11)
+    }
+  }
+}
+
+private let testInput = "^v^v^v^v^v"
