@@ -47,7 +47,7 @@ extension NewDay {
       relativeTo: .currentDirectory()
     )!
   }
-  
+
   func solution(_ number: String) -> String {
     """
     import Foundation
