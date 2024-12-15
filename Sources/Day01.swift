@@ -3,7 +3,7 @@ import Foundation
 struct Day01: AdventDay, Sendable {
   let data: String
   let day = 1
-  let puzzleName: String = "--- Day 0: Placeholder! ---"
+  let puzzleName: String = "--- Day 1: Not Quite Lisp ---"
 
   init(data: String) {
     self.data = data
