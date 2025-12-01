@@ -27,7 +27,7 @@ extension Day04 {
   func generator(_ seed: String, condition: (String) -> Bool) -> Int {
     var input = 0
 
-    for n in 1 ... 100000000 {
+    for n in 1 ... 100_000_000 {
       input = n
       let str = seed + String(n)
       let data = Data(str.utf8)

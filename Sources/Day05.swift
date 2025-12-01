@@ -23,7 +23,7 @@ struct Day05: AdventDay, Sendable {
 extension Day05 {
   static func isNice(_ str: String) -> Bool {
     let vowels = ["a", "e", "i", "o", "u"].map(Character.init)
-    guard Array(str).filter({ vowels.contains($0) }).count >= 3
+    guard Array(str).count(where: { vowels.contains($0) }) >= 3
     else {
       return false
     }

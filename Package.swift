@@ -15,7 +15,7 @@ let package = Package(
     .executable(name: "AdventOfCode", targets: ["AdventOfCode"]),
   ],
   dependencies: [
-//    .package(
+    //    .package(
 //      url: "https://github.com/Abizern/AoCCommon", "0.2.0" ..< "0.3.0"
 //      from: "0.0.7"
 //    ),
@@ -25,10 +25,10 @@ let package = Package(
       url: "https://github.com/apple/swift-algorithms.git", "1.2.1" ..< "1.3.0"
     ),
     .package(
-      url: "https://github.com/apple/swift-argument-parser.git", "1.6.2" ..< "1.7.0",
+      url: "https://github.com/apple/swift-argument-parser.git", "1.6.2" ..< "1.7.0"
     ),
     .package(
-      url: "https://github.com/apple/swift-collections.git", "1.3.0" ..< "1.4.0",
+      url: "https://github.com/apple/swift-collections.git", "1.3.0" ..< "1.4.0"
     ),
   ],
   targets: [

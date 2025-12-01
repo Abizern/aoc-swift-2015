@@ -1,28 +1,32 @@
+import Algorithms
+import AoCCommon
 import CoreGraphics
 import Foundation
 
 struct Day03: AdventDay, Sendable {
-  let data: String
+  let offsets: [Cell.Offset]
   let day = 3
   let puzzleName: String = "--- Day 3: Perfectly Spherical Houses in a Vacuum ---"
 
   init(data: String) {
-    self.data = data
-  }
-
-  var instructions: [Character] {
-    Array(data)
+    offsets = data.map { char in
+      switch char {
+      case "^": .up
+      case "v": .down
+      case "<": .left
+      case ">": .right
+      default: fatalError("Unexpected character: \(char)")
+      }
+    }
   }
 
   func part1() async throws -> Int {
-    var visited = Set<CGPoint>()
-    var position = CGPoint(x: 0, y: 0)
-    var instructions = instructions
-    visited.insert(position)
+    var visited = Set<Cell>()
+    var position = Cell.origin
+    visited.insert(Cell.origin)
 
-    while !instructions.isEmpty {
-      let char = instructions.removeFirst()
-      position = position.move(char)
+    for offset in offsets {
+      position = position.offset(by: offset)
       visited.insert(position)
     }
 
@@ -30,45 +34,18 @@ struct Day03: AdventDay, Sendable {
   }
 
   func part2() async throws -> Int {
-    var visited = Set<CGPoint>()
-    var p1 = CGPoint(x: 0, y: 0)
-    var p2 = CGPoint(x: 0, y: 0)
-    var instructions = instructions
-    visited.insert(p1)
-    visited.insert(p2)
+    var visited = Set<Cell>()
+    var p1 = Cell.origin
+    var p2 = Cell.origin
+    visited.insert(Cell.origin)
 
-    guard instructions.count % 2 == 0 else {
-      fatalError("There must be an even number of instructions")
-    }
-
-    while !instructions.isEmpty {
-      let i1 = instructions.removeFirst()
-      let i2 = instructions.removeFirst()
-
-      p1 = p1.move(i1)
-      p2 = p2.move(i2)
+    for chunk in offsets.chunks(ofCount: 2) {
+      p1 = p1.offset(by: chunk.first!)
+      p2 = p2.offset(by: chunk.last!)
 
       visited.insert(p1)
       visited.insert(p2)
     }
-
     return visited.count
-  }
-}
-
-extension CGPoint {
-  func move(_ char: Character) -> CGPoint {
-    switch char {
-    case "^":
-      CGPoint(x: x, y: y + 1)
-    case "v":
-      CGPoint(x: x, y: y - 1)
-    case "<":
-      CGPoint(x: x - 1, y: y)
-    case">":
-      CGPoint(x: x + 1, y: y)
-    default:
-      self
-    }
   }
 }

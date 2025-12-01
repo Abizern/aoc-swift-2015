@@ -9,7 +9,7 @@ struct Day03Tests {
     @Test("Test parser implementation")
     func parseInput() {
       let day = Day03(data: testInput)
-      #expect(day.instructions.count == 10)
+      #expect(day.offsets.count == 10)
     }
   }
 

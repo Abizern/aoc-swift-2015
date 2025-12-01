@@ -7,7 +7,7 @@ struct Day02: AdventDay, Sendable {
   let puzzleName: String = "--- Day 2: I Was Told There Would Be No Math ---"
 
   init(data: String) {
-    self.dimensions = Self.dimensionParser(data)
+    dimensions = Self.dimensionParser(data)
   }
 
   func part1() async throws -> Int {
@@ -39,7 +39,7 @@ extension Day02 {
       .split(separator: "\n")
       .map { line in
         guard
-          let match = line.wholeMatch(of: regex ),
+          let match = line.wholeMatch(of: regex),
           let a = Int(match.a),
           let b = Int(match.b),
           let c = Int(match.c)

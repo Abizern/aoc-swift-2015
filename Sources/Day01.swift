@@ -1,5 +1,5 @@
-import Foundation
 import Algorithms
+import Foundation
 
 struct Day01: AdventDay, Sendable {
   let moves: [Int]
@@ -27,4 +27,3 @@ struct Day01: AdventDay, Sendable {
       .count
   }
 }
-
