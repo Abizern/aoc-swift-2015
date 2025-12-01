@@ -2,16 +2,12 @@ import Foundation
 import Parsing
 
 struct Day02: AdventDay, Sendable {
-  let data: String
+  let dimensions: [(Int, Int, Int)]
   let day = 2
   let puzzleName: String = "--- Day 2: I Was Told There Would Be No Math ---"
 
   init(data: String) {
-    self.data = data
-  }
-
-  var dimensions: [(Int, Int, Int)] {
-    try! DimensionsParser().parse(data).map(ordered)
+    self.dimensions = Self.dimensionParser(data)
   }
 
   func part1() async throws -> Int {
@@ -24,28 +20,6 @@ struct Day02: AdventDay, Sendable {
 }
 
 extension Day02 {
-  struct DimensionsParser: Parser {
-    var body: some Parser<Substring, [(Int, Int, Int)]> {
-      Many {
-        Int.parser()
-        "x"
-        Int.parser()
-        "x"
-        Int.parser()
-      } separator: {
-        "\n"
-      } terminator: {
-        End()
-      }
-    }
-  }
-
-  func ordered(_ dimensions: (Int, Int, Int)) -> (Int, Int, Int) {
-    let (a, b, c) = dimensions
-    let dims = [a, b, c].sorted()
-    return (dims[0], dims[1], dims[2])
-  }
-
   func paper(_ dimensions: (Int, Int, Int)) -> Int {
     let (a, b, c) = dimensions
     return [3 * a * b, 2 * b * c, 2 * a * c].reduce(0, +)
@@ -54,5 +28,26 @@ extension Day02 {
   func ribbon(_ dimensions: (Int, Int, Int)) -> Int {
     let (a, b, c) = dimensions
     return [2 * (a + b) + [a, b, c].reduce(1, *)].reduce(0, +)
+  }
+}
+
+extension Day02 {
+  static func dimensionParser(_ str: String) -> [(Int, Int, Int)] {
+    let regex = /(?<a>\d+)x(?<b>\d+)x(?<c>\d+)/
+
+    return str
+      .split(separator: "\n")
+      .map { line in
+        guard
+          let match = line.wholeMatch(of: regex ),
+          let a = Int(match.a),
+          let b = Int(match.b),
+          let c = Int(match.c)
+        else {
+          fatalError("\(str) is not in the expected format")
+        }
+        let s = [a, b, c].sorted()
+        return (s[0], s[1], s[2])
+      }
   }
 }
